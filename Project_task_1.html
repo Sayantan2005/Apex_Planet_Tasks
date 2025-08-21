@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Webpage</title>
+
+    <!-- CSS Styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #2e8b57;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        h2 {
+            color: #4682b4;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        img {
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px gray;
+        }
+
+        a {
+            color: #ff4500;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #3cb371;
+        }
+
+        footer {
+            background: #2e8b57;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        .contact {
+            margin-top: 40px;
+            text-align: center;
+            background: #e6f7ff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>🌍 Welcome to My First Webpage</h1>
+        <p>Learning HTML, CSS, and JavaScript step by step</p>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section>
+            <h2>About This Page</h2>
+            <p>This is a simple webpage created using <strong>HTML</strong>, styled with <strong>CSS</strong>, and made interactive using <strong>JavaScript</strong>.</p>
+            <p>It includes headings, paragraphs, images, links, and a button with an alert function.</p>
+        </section>
+
+        <!-- Image -->
+        <section>
+            <h2>Sample Image</h2>
+            <img src="https://tse1.mm.bing.net/th/id/OIP.MBlOJPg-beF5E6q2yR5k9gHaLH?pid=Api&P=0&h=180" alt="Sample Image">
+        </section>
+
+        <!-- Resources -->
+        <section>
+            <h2>Learning Resources</h2>
+            <p>Check out <a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank">MDN Web Docs</a> for detailed tutorials.</p>
+        </section>
+
+        <!-- Button -->
+        <section>
+            <h2>Try JavaScript</h2>
+            <button onclick="showMessage()">Click Me!</button>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact">
+            <h2>📩 Contact Me</h2>
+            <p><strong>Name:</strong> Sayantan Sarkar</p>
+            <p><strong>Email:</strong> sayantans607@gmail.com</p>
+            <p><strong>Phone:</strong> +91 9749439983</p>
+            <p>
+                <strong>Social:</strong> 
+                <a href="https://www.linkedin.com/in/sayantan-sarkar-8001b4273/" target="_blank">LinkedIn</a> | 
+                <a href="https://github.com/Sayantan2005" target="_blank">GitHub</a>
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 My First Webpage | Built with ❤️ using HTML, CSS, and JavaScript</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function showMessage() {
+            alert("Hello! You clicked the button 🚀");
+        }
+    </script>
+</body>
+</html>

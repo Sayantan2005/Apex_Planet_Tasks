@@ -1,0 +1,149 @@
+/* General Layout */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #333;
+}
+
+.quiz-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  max-width: 600px;
+  width: 95%;
+  animation: fadeIn 1s ease;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2a6592;
+  font-size: 1.8rem;
+}
+
+/* Question */
+.question {
+  font-weight: bold;
+  margin: 15px 0;
+  font-size: 1.2rem;
+}
+
+/* Options */
+.options {
+  margin: 15px 0;
+}
+
+.options label {
+  display: block;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+
+.options input {
+  display: none;
+}
+
+/* Highlight selected answer */
+.options input:checked + span {
+  background: #2a6592;
+  color: #fff;
+  border-color: #2a6592;
+}
+
+/* Option hover */
+.options label:hover {
+  transform: scale(1.02);
+  background: #eef7ff;
+  border-color: #2a6592;
+}
+
+/* Button */
+button {
+  background: #2a6592;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 15px;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background: #1e4a6d;
+  transform: scale(1.03);
+}
+
+/* Feedback */
+.feedback {
+  margin-top: 15px;
+  padding: 12px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.feedback.correct {
+  background: #d4edda;
+  color: #155724;
+}
+
+.feedback.wrong {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Joke */
+.joke {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff8dc;
+  font-style: italic;
+  text-align: center;
+  font-size: 1rem;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+
+/* Final Result */
+.result {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #eaf2f8;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  .question {
+    font-size: 1rem;
+  }
+}

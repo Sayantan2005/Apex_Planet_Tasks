@@ -1,0 +1,72 @@
+:root {
+    --accent: #0b6b6b
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    font-family: Arial;
+    background: #f5f7f7;
+    margin: 0;
+    padding: 2rem
+}
+
+.store {
+    max-width: 1100px;
+    margin: 0 auto
+}
+
+.store-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center
+}
+
+.controls input,
+.controls select {
+    padding: .5rem;
+    border-radius: 8px;
+    border: 1px solid #ddd
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem
+}
+
+.card {
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04)
+}
+
+.card h3 {
+    margin: 0 0 .3rem
+}
+
+.card p {
+    margin: .2rem 0;
+    font-size: .95rem
+}
+
+.price {
+    font-weight: 700;
+    color: var(--accent)
+}
+
+.muted {
+    color: #666
+}

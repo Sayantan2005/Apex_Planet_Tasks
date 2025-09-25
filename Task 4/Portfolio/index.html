@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sayantan Sarkar — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">Sayantan Sarkar</div>
+    <button id="menuBtn" class="menu-btn" aria-label="Toggle menu">☰</button>
+    <nav id="mainNav" class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Hi — I'm Sayantan</h1>
+        <p>Front-end developer • Java student • building clean and responsive web apps.</p>
+        <p class="cta">
+          <a class="button" href="projects.html">See Projects</a>
+          <a class="button alt" href="contact.html">Contact Me</a>
+        </p>
+      </div>
+      <div class="hero-right">
+        <!-- simple placeholder avatar -->
+        <svg width="160" height="160" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="48" fill="#0b6b6b"></circle>
+          <text x="50" y="57" font-size="36" text-anchor="middle" fill="#fff" font-family="Arial">SS</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="preview">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <article class="card">
+          <h3>Todo App (localStorage)</h3>
+          <p>Save, edit, remove tasks — persisted locally.</p>
+          <a class="link" href="../todo/index.html">Open</a>
+        </article>
+
+        <article class="card">
+          <h3>Product Listing</h3>
+          <p>Filter & sort products with a dynamic UI.</p>
+          <a class="link" href="../products/index.html">Open</a>
+        </article>
+
+        <article class="card">
+          <h3>Portfolio Website</h3>
+          <p>Multi-page responsive layout with contact form.</p>
+          <a class="link" href="projects.html">Details</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Sayantan Sarkar — Built with HTML, CSS & JavaScript</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

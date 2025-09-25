@@ -1,0 +1,216 @@
+:root {
+    --primary: #0b6b6b;     /* main brand color */
+    --accent: #0f9a9a;
+    --bg: #f6f7f7;
+    --card: #ffffff;
+    --muted: #666;
+    --maxwidth: 1100px;
+    --radius: 12px;
+    font-size: 16px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;               /* allows sticky footer */
+    flex-direction: column;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, #f6f7f7, #ffffff);
+    color: #123;
+}
+
+/* ---------- HEADER / NAV ---------- */
+.site-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;          /* increased height */
+    /* NEW COLOR: teal → blue gradient */
+    background: linear-gradient(90deg, #0b6b6b 0%, #0f9a9a 50%, #0077b6 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.5rem;            /* bigger brand text */
+    letter-spacing: 1px;
+}
+
+.menu-btn {
+    display: none;
+    background: transparent;
+    border: 0;
+    color: white;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.nav a {
+    color: white;
+    margin-left: 1rem;
+    text-decoration: none;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    transition: background .3s;
+}
+
+.nav a.active,
+.nav a:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- MAIN CONTENT ---------- */
+main {
+    flex: 1;                      /* take remaining height */
+}
+
+.container {
+    max-width: var(--maxwidth);
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.hero {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    max-width: var(--maxwidth);
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.hero-left h1 {
+    margin: 0 0 0.5rem;
+    font-size: 2rem;
+}
+
+.hero-right { margin-left: auto; }
+
+.button {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border: 0;
+}
+
+.button.alt {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    margin-left: 0.5rem;
+}
+
+.preview {
+    max-width: var(--maxwidth);
+    margin: 1rem auto;
+    padding: 1rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    background: var(--card);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(10, 10, 10, 0.06);
+}
+
+.card h3 { margin: 0 0 .5rem; }
+
+.link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--accent);
+}
+
+.skills {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.skills li {
+    background: #e9fbfb;
+    padding: .3rem .6rem;
+    border-radius: 6px;
+    font-size: .95rem;
+}
+
+.contact-form {
+    max-width: 640px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 0.7rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: .5rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.muted {
+    color: var(--muted);
+    margin-top: 0.5rem;
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+    flex-shrink: 0;               /* stay at bottom */
+    background: #094;             /* changed to a deep green */
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:800px) {
+    .hero {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .nav {
+        position: absolute;
+        right: 1rem;
+        top: 80px; /* adjusted for taller header */
+        background: rgba(0,0,0,0.1);
+        padding: .5rem;
+        border-radius: 8px;
+    }
+
+    .nav a {
+        display: block;
+        background: rgba(255, 255, 255, .1);
+        margin: 6px 0;
+        padding: 6px 10px;
+    }
+
+    .projects-grid.large {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}

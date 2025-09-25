@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Todo App — Local Storage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="todo-app">
+    <h1>To-Do List</h1>
+
+    <form id="addForm" class="add-form">
+      <input id="taskText" type="text" placeholder="Add new task..." required autocomplete="off">
+      <button type="submit">Add</button>
+    </form>
+
+    <div class="controls">
+      <input id="search" placeholder="Search tasks...">
+      <select id="filterDone">
+        <option value="all">All</option>
+        <option value="active">Active</option>
+        <option value="done">Completed</option>
+      </select>
+    </div>
+
+    <ul id="taskList" class="task-list" aria-live="polite"></ul>
+    <p class="muted">Tasks are saved in your browser via localStorage.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

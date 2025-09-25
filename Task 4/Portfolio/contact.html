@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Sayantan Sarkar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">Sayantan Sarkar</div>
+    <button id="menuBtn" class="menu-btn" aria-label="Toggle menu">☰</button>
+    <nav id="mainNav" class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Contact</h1>
+    <p>Use this quick form to leave me a message (demo: stored locally).</p>
+
+    <form id="contactForm" class="contact-form" novalidate>
+      <label>
+        Your name
+        <input type="text" name="name" id="name" required>
+      </label>
+
+      <label>
+        Email
+        <input type="email" name="email" id="email" required>
+      </label>
+
+      <label>
+        Message
+        <textarea name="message" id="message" rows="5" required></textarea>
+      </label>
+
+      <button type="submit" class="button">Send Message</button>
+      <p id="contactStatus" class="muted" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Sayantan Sarkar</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

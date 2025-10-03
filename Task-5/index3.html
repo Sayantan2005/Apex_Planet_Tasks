@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Market - Your Online Grocery Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            background: white;
+            color: #667eea;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.3);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .categories {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: #333;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .category-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-card:hover .category-icon {
+            animation: bounce 0.5s ease;
+        }
+
+        .products {
+            padding: 3rem 2rem;
+            background: white;
+        }
+
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            animation: wiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .add-to-cart {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .add-to-cart:active {
+            animation: cartBounce 0.3s ease;
+        }
+
+        @keyframes cartBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .about-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .about-content h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .about-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-box .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-info h3 {
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .info-item .icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .info-item .details h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .info-item .details p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 3000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .cart-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .cart-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .cart-header h2 {
+            color: #667eea;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+        }
+
+        .close-cart {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-cart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cart-item-icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-price {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .remove-item {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .remove-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.4);
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #999;
+        }
+
+        .cart-empty-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cart-summary {
+            border-top: 2px solid #e0e0e0;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-total-amount {
+            color: #667eea;
+        }
+
+        .checkout-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            line-height: 1.8;
+            display: block;
+            margin: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .footer-section a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: slideInRight 0.5s ease-out;
+            z-index: 2000;
+            display: none;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                transition: left 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .cart-icon {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form,
+            .contact-info {
+                padding: 2rem;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 3rem 1rem;
+                min-height: 400px;
+            }
+
+            .about-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo" onclick="showPage('home')">🛒 Fresh Market</div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a onclick="showPage('home')">Home</a></li>
+                <li><a onclick="showPage('products')">Products</a></li>
+                <li><a onclick="showPage('about')">About</a></li>
+                <li><a onclick="showPage('contact')">Contact</a></li>
+                <li>
+                    <div class="cart-icon" onclick="openCart()">
+                        🛍️ Cart
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div class="page active" id="home">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Fresh Market</h1>
+                <p>Your one-stop shop for fresh groceries delivered to your doorstep</p>
+                <button class="cta-button" onclick="showPage('products')">Shop Now</button>
+            </div>
+        </section>
+
+        <section class="categories">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="filterAndNavigate('fruits')">
+                    <div class="category-icon">🍎</div>
+                    <h3>Fresh Fruits</h3>
+                    <p>Organic and locally sourced</p>
+                </div>
+                <div class="category-card" onclick="filterAndNavigate('vegetables')">
+                    <div class="category-icon">🥬</div>
+                    <h3>Vegetables</h3>
+                    <p>Farm-fresh daily</p>
+                </div>
+                <div class="category-card" onclick="filterAndNavigate('dairy')">
+                    <div class="category-icon">🥛</div>
+                    <h3>Dairy Products</h3>
+                    <p>Pure and natural</p>
+                </div>
+                <div class="category-card" onclick="filterAndNavigate('bakery')">
+                    <div class="category-icon">🍞</div>
+                    <h3>Bakery</h3>
+                    <p>Freshly baked goods</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Products Page -->
+    <div class="page" id="products">
+        <section class="products">
+            <div class="products-container">
+                <h2 class="section-title">Our Products</h2>
+                <div class="product-grid" id="productGrid"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div class="page" id="about">
+        <section class="about-section">
+            <h2 class="section-title">About Fresh Market</h2>
+            <div class="about-content">
+                <h2>Who We Are</h2>
+                <p>Fresh Market is your trusted partner in healthy living. Since 2020, we've been committed to bringing farm-fresh groceries directly to your doorstep. Our mission is simple: provide the highest quality products at competitive prices while ensuring convenience and customer satisfaction.</p>
+                
+                <h2>Our Story</h2>
+                <p>Founded by a group of health enthusiasts and local farmers, Fresh Market was born out of a desire to bridge the gap between farm and table. We believe that everyone deserves access to fresh, organic, and nutritious food without compromising on quality or convenience.</p>
+                
+                <h2>What Makes Us Special</h2>
+                <p>We partner directly with local farmers and suppliers to ensure that every product meets our strict quality standards. Our cold chain logistics ensure that your groceries arrive as fresh as they were on the farm. Plus, our commitment to sustainability means we use eco-friendly packaging and support sustainable farming practices.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 3rem;">Why Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="icon">🌱</div>
+                    <h3>100% Organic</h3>
+                    <p>All our products are certified organic and pesticide-free</p>
+                </div>
+                <div class="feature-box">
+                    <div class="icon">🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Same-day delivery available in most areas</p>
+                </div>
+                <div class="feature-box">
+                    <div class="icon">💰</div>
+                    <h3>Best Prices</h3>
+                    <p>Competitive pricing with regular discounts and offers</p>
+                </div>
+                <div class="feature-box">
+                    <div class="icon">🏆</div>
+                    <h3>Quality Guaranteed</h3>
+                    <p>100% satisfaction guarantee on all products</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div class="page" id="contact">
+        <section class="contact-section">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h3 style="color: #667eea; margin-bottom: 1.5rem;">Send us a Message</h3>
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="order">Order Support</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" required placeholder="Tell us how we can help you..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <div class="icon">📍</div>
+                        <div class="details">
+                            <h4>Visit Us</h4>
+                            <p>123 Market Street<br>Fresh City, FC 12345<br>United States</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon">📞</div>
+                        <div class="details">
+                            <h4>Call Us</h4>
+                            <p>Phone: +1 (555) 123-4567<br>Toll Free: 1-800-FRESH-00</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon">✉️</div>
+                        <div class="details">
+                            <h4>Email Us</h4>
+                            <p>support@freshmarket.com<br>sales@freshmarket.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon">🕐</div>
+                        <div class="details">
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 8:00 AM - 8:00 PM<br>Saturday - Sunday: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>🛍️ Shopping Cart</h2>
+                <button class="close-cart" onclick="closeCart()">×</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-summary" id="cartSummary"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Fresh Market</h3>
+                <p>Your trusted partner for fresh, organic groceries delivered to your doorstep. Quality guaranteed.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a onclick="showPage('home')">Home</a>
+                <a onclick="showPage('products')">Products</a>
+                <a onclick="showPage('about')">About Us</a>
+                <a onclick="showPage('contact')">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <a href="#">FAQs</a>
+                <a href="#">Shipping Info</a>
+                <a href="#">Returns Policy</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>📱 Instagram | 📘 Facebook</p>
+                <p>🐦 Twitter | 📺 YouTube</p>
+                <p>Stay updated with our latest offers!</p>
+            </div>
+        </div>
+        <p style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">&copy; 2025 Fresh Market. All rights reserved.</p>
+    </footer>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        const products = [
+            { id: 1, name: 'Fresh Apples', category: 'fruits', price: 4.99, desc: 'Crisp and sweet', icon: '🍎', badge: 'Fresh' },
+            { id: 2, name: 'Organic Bananas', category: 'fruits', price: 2.99, desc: 'Rich in potassium', icon: '🍌', badge: 'Organic' },
+            { id: 3, name: 'Ripe Strawberries', category: 'fruits', price: 5.99, desc: 'Sweet and juicy', icon: '🍓', badge: 'Sale' },
+            { id: 4, name: 'Fresh Oranges', category: 'fruits', price: 3.99, desc: 'Vitamin C packed', icon: '🍊', badge: '' },
+            { id: 5, name: 'Fresh Carrots', category: 'vegetables', price: 3.49, desc: 'Crunchy and healthy', icon: '🥕', badge: '' },
+            { id: 6, name: 'Green Broccoli', category: 'vegetables', price: 2.99, desc: 'Packed with nutrients', icon: '🥦', badge: 'Fresh' },
+            { id: 7, name: 'Bell Peppers', category: 'vegetables', price: 4.49, desc: 'Colorful and tasty', icon: '🫑', badge: '' },
+            { id: 8, name: 'Fresh Tomatoes', category: 'vegetables', price: 3.99, desc: 'Juicy and ripe', icon: '🍅', badge: 'Popular' },
+            { id: 9, name: 'Fresh Milk', category: 'dairy', price: 3.99, desc: 'Full cream, farm fresh', icon: '🥛', badge: 'Fresh' },
+            { id: 10, name: 'Cheddar Cheese', category: 'dairy', price: 6.99, desc: 'Aged to perfection', icon: '🧀', badge: '' },
+            { id: 11, name: 'Greek Yogurt', category: 'dairy', price: 4.49, desc: 'Creamy and protein-rich', icon: '🥣', badge: 'Popular' },
+            { id: 12, name: 'Fresh Butter', category: 'dairy', price: 5.49, desc: 'Unsalted, pure cream', icon: '🧈', badge: '' },
+            { id: 13, name: 'Whole Wheat Bread', category: 'bakery', price: 3.49, desc: 'Freshly baked daily', icon: '🍞', badge: 'Fresh' },
+            { id: 14, name: 'Croissants', category: 'bakery', price: 5.99, desc: 'Buttery and flaky', icon: '🥐', badge: 'New' },
+            { id: 15, name: 'Chocolate Cake', category: 'bakery', price: 12.99, desc: 'Rich and decadent', icon: '🍰', badge: 'Special' },
+            { id: 16, name: 'Bagels', category: 'bakery', price: 4.49, desc: 'Fresh baked bagels', icon: '🥯', badge: '' }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productGrid');
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category === filter);
+            
+            grid.innerHTML = filteredProducts.map((product, index) => `
+                <div class="product-card" style="animation-delay: ${index * 0.1}s">
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <div class="product-image">${product.icon}</div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-desc">${product.desc}</p>
+                        <div class="product-footer">
+                            <span class="product-price">${product.price}</span>
+                            <button class="add-to-cart" onclick="addToCart(${product.id})">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                cart.push({...product, cartId: Date.now()});
+                updateCartCount();
+                showNotification('Item added to cart!', 'success');
+            }
+        }
+
+        function removeFromCart(cartId) {
+            cart = cart.filter(item => item.cartId !== cartId);
+            updateCartCount();
+            renderCart();
+            showNotification('Item removed from cart!', 'info');
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            cartCount.textContent = cart.length;
+            
+            if (cart.length > 0) {
+                cartCount.style.display = 'flex';
+            } else {
+                cartCount.style.display = 'none';
+            }
+        }
+
+        function openCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.add('active');
+            renderCart();
+        }
+
+        function closeCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.remove('active');
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some delicious items to get started!</p>
+                    </div>
+                `;
+                cartSummary.innerHTML = '';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-icon">${item.icon}</div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price.toFixed(2)}</div>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${item.cartId})">
+                        Remove
+                    </button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            
+            cartSummary.innerHTML = `
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span class="cart-total-amount">${total.toFixed(2)}</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">
+                    Proceed to Checkout
+                </button>
+            `;
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            showNotification(`Order placed! Total: ${total.toFixed(2)}`, 'success');
+            cart = [];
+            updateCartCount();
+            closeCart();
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.background = type === 'success' ? '#4caf50' : '#2196F3';
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+
+        function filterAndNavigate(category) {
+            currentFilter = category;
+            showPage('products');
+            setTimeout(() => renderProducts(category), 100);
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            if (pageId === 'products') {
+                renderProducts(currentFilter);
+            }
+            
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            showNotification('Thank you! Your message has been sent successfully.', 'success');
+            document.getElementById('contactForm').reset();
+        }
+
+        // Close cart when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCart();
+            }
+        });
+
+        // Initialize products on page load
+        renderProducts();
+    </script>
+</body>
+</html>
